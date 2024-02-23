@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { useOutletContext, useParams } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { useState } from 'react'
+import { useOutletContext, useParams } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 // import { db } from "../../utils/firebase";
 // import { onValue, ref } from "firebase/database";
 import {
@@ -9,61 +9,61 @@ import {
   FactorButtons,
   FactorUnitAnimations,
   SlideShow,
-} from "components";
+} from 'components/index'
 
 export default function CardDetail() {
-  const [isDestructOpen, setIsDestructOpen] = useState(false);
-  const [audio, setAudio] = useState(new Audio());
-  const [button, setButton] = useState(1);
-  const [value, setValue] = useState(1);
+  const [isDestructOpen, setIsDestructOpen] = useState(false)
+  const [audio, setAudio] = useState(new Audio())
+  const [button, setButton] = useState(1)
+  const [value, setValue] = useState(1)
 
   /* finds the index of the object in "list" array being passed down as props
   and provides it to "item" object */
-  let { id, category } = useParams();
+  const { id, category } = useParams()
 
   ///////////// FIX THIS //////////////////////////
 
-  const { animals, instruments, numbers, alphabetLetterSounds, handleOpenClose } = useOutletContext();
+  const { animals, instruments, numbers, alphabetLetterSounds, handleOpenClose } = useOutletContext()
 
   const currList = { animals, instruments, numbers }
 
   
   const findItem = () => {
-    let currentItem;
-    let currentList;
-    if (category === "science") {
-      currentItem = currList['animals'].findIndex(item => item.id === id);
-      currentList = currList['animals'][currentItem];
+    let currentItem
+    let currentList
+    if (category === 'science') {
+      currentItem = currList['animals'].findIndex(item => item.id === id)
+      currentList = currList['animals'][currentItem]
     } 
-    if (category === "arts") {
-      currentItem = currList['instruments'].findIndex(item => item.id === id);
-      currentList = currList['instruments'][currentItem];
+    if (category === 'arts') {
+      currentItem = currList['instruments'].findIndex(item => item.id === id)
+      currentList = currList['instruments'][currentItem]
     } 
-    if (category === "math") {
-      currentItem = currList['numbers'].findIndex(item => item.id === id);
-      currentList = currList['numbers'][currentItem];
+    if (category === 'math') {
+      currentItem = currList['numbers'].findIndex(item => item.id === id)
+      currentList = currList['numbers'][currentItem]
     }
-    return currentList;
+    return currentList
   }
 
-  let item = findItem(); 
+  const item = findItem() 
 
 
   const xSectionCloser = () => {
-    const clicked = isDestructOpen;
-    setIsDestructOpen(!clicked);
-    audio.volume = 0;
-  };
+    const clicked = isDestructOpen
+    setIsDestructOpen(!clicked)
+    audio.volume = 0
+  }
 
   // gets passed down to FactButton component to raise the audio file to this component's state
   const getAudio = (audio) => {
-    setAudio(audio);
-  };
+    setAudio(audio)
+  }
 
   const factorSplit = (button, value) => {
-    setButton(button);
-    setValue(value);
-  };
+    setButton(button)
+    setValue(value)
+  }
 
   const destructComponents = {
     science: (
@@ -82,11 +82,11 @@ export default function CardDetail() {
         xSectionCloser={() => xSectionCloser()}
       />
     ),
-  };
+  }
 
   const openDestruct = (category) => {
-    return destructComponents[category];
-  };
+    return destructComponents[category]
+  }
 
   return (
     <div
@@ -107,14 +107,14 @@ export default function CardDetail() {
           </div>
           <div className="w-full lg:w-2/4 h-134 flex justify-center items-center">
             {/* ///// SCIENCE & ARTS Image Logic ///// */}
-            {(item.category === "science" || item.category === "arts") && (
+            {(item.category === 'science' || item.category === 'arts') && (
               <img
                 src={item.image}
                 alt={item.name}
               />
             )}
             {/* ///// MATH Image Logic ///// */}
-            {item.category === "math" && (
+            {item.category === 'math' && (
               <FactorUnitAnimations
                 image={item.image}
                 unitNumber={item.value}
@@ -147,5 +147,5 @@ export default function CardDetail() {
         </div>
       </div>
     </div>
-  );
+  )
 }

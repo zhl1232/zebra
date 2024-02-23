@@ -1,100 +1,120 @@
-import { useRef, useState } from 'react';
+import { useRef, useState } from 'react'
 import {
   scienceArray,
   artsArray,
   mathArray,
-  // animalSyllables,
   alphabetLetterSounds
-} from './zebrAPI';
-import { NavBar, MenuModal, Footer } from 'components/index';
-import { Outlet } from 'react-router-dom';
-import useLocalStorage from './hooks/useLocalStorage.ts';
-import './styles.css';
+} from './zebrAPI'
+import { NavBar, MenuModal, Footer } from 'components/index'
+import { Outlet } from 'react-router-dom'
+import useLocalStorage from './hooks/useLocalStorage.ts'
+import './styles.css'
+
+type Animal = {
+  id: string;
+  clicked: boolean;
+  isLiked: boolean;
+  // Add other properties here
+}
+
+type Instrument = {
+  id: string;
+  clicked: boolean;
+  isLiked: boolean;
+  // Add other properties here
+}
+
+type Math = {
+  id: string;
+  clicked: boolean;
+  isLiked: boolean;
+  // Add other properties here
+}
 
 export default function App() {
-  const menuModal = useRef();
+  const menuModal = useRef<HTMLDialogElement>(null)
   // SCIENCE
-  const [animals, setAnimals] = useLocalStorage('animals', scienceArray);
+  const [animals, setAnimals] = useLocalStorage<Animal[]>('animals', scienceArray)
 
   // ARTS
-  const [instruments, setInstruments] = useLocalStorage(
+  const [instruments, setInstruments] = useLocalStorage<Instrument[]>(
     'instruments',
     artsArray
-  );
+  )
 
   // MATH
-  const [numbers, setNumbers] = useLocalStorage('numbers', mathArray);
+  const [numbers, setNumbers] = useLocalStorage<Math[]>('numbers', mathArray)
 
-  const [detailOpen, setDetailOpen] = useState(false);
-  const [loading] = useState(false);
+  const [detailOpen, setDetailOpen] = useState(false)
+  const [loading] = useState(false)
 
   /* 
       handleClose toggles the view from the ButtonList
       to the LetterDetail
   */
 
-  const handleOpenClose = (id, category, audio = new Audio()) => {
-    let list = [];
-    if (category === 'science') list = animals;
-    if (category === 'math') list = numbers;
-    if (category === 'arts') list = instruments;
+  const handleOpenClose = (id: string, category: string, audio = new Audio()) => {
+    let list: Animal[] | Instrument[] | Math[] = []
+    if (category === 'science') list = animals
+    if (category === 'math') list = numbers
+    if (category === 'arts') list = instruments
 
     const newList = list.map((element) => {
       if (id === element.id) {
-        element.clicked = !element.clicked;
+        element.clicked = !element.clicked
       }
-      return element;
-    });
+      return element
+    })
 
     if (category === 'science') {
-      setAnimals(newList);
+      setAnimals(newList)
     }
     if (category === 'arts') {
-      setInstruments(newList);
+      setInstruments(newList)
     }
     if (category === 'math') {
-      setNumbers(newList);
+      setNumbers(newList)
     }
 
-    const clicked = detailOpen;
-    setDetailOpen(!clicked);
-    return (audio.volume = 0);
-  };
+    const clicked = detailOpen
+    setDetailOpen(!clicked)
+    return (audio.volume = 0)
+  }
 
   const handleModal = () => {
-    menuModal.current.showModal();
-  };
+    menuModal.current?.showModal()
+  }
 
-  const handleLike = (id, category, list) => {
-    let array = [];
+  const handleLike = (id: string, category: string) => {
+    let array: Animal[] | Instrument[] | Math[] = []
     if (category === 'science') {
-      array = [...animals];
+      array = [...animals]
     }
     if (category === 'arts') {
-      array = [...instruments];
+      array = [...instruments]
     }
     if (category === 'math') {
-      array = [...numbers];
+      array = [...numbers]
     }
 
     const newList = array.map((buttonValue) => {
       if (id === buttonValue.id) {
         buttonValue.isLiked =
-          String(buttonValue.isLiked) === 'true' ? false : true;
+          String(buttonValue.isLiked) === 'true' ? false : true
       }
-      return buttonValue;
-    });
+      return buttonValue
+    })
 
     if (category === 'science') {
-      setAnimals(newList);
+      setAnimals(newList)
     }
     if (category === 'arts') {
-      setInstruments(newList);
+      setInstruments(newList)
     }
     if (category === 'math') {
-      setNumbers(newList);
+      setNumbers(newList)
     }
-  };
+  }
 
   //////////////////////////////////////////
   ///////// PARENT FUNCTIONS - END /////////
@@ -123,5 +143,5 @@ export default function App() {
         </div>
       }
     </div>
-  );
+  )
 }

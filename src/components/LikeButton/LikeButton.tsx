@@ -1,19 +1,33 @@
-import React from "react";
-import { useSelector } from "react-redux";
-import { useOutletContext } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart } from "@fortawesome/free-solid-svg-icons";
+import { useSelector } from 'react-redux'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faHeart } from '@fortawesome/free-solid-svg-icons'
+import { useOutletContext } from 'react-router-dom'
+import type { RootState } from '@/app/store'
 
+type LikeButtonProps = {
+  isLiked: boolean;
+  item: {
+    id: number;
+    category: string;
+  };
+};
 
 export default function LikeButton({
   isLiked,
   item
-}) {
-  const { handleLike } = useOutletContext();
-  const playing = useSelector((state) => state.playing.value);
-  const handleLikeHeart = (id, category, array) => {
-    handleLike(id, category, array);
+}: LikeButtonProps) {
+
+
+  type OutletContextType = {
+    handleLike: (id: number, category: string, array: unknown) => void;
+    // Add other properties if necessary
   };
+
+  const { handleLike } = useOutletContext() as OutletContextType
+  const playing = useSelector((state:RootState) => state.playing.value)
+  const handleLikeHeart = (id: number, category: string, array: unknown) => {
+    handleLike(id, category, array)
+  }
 
   return playing ? (
     isLiked ? (
@@ -35,5 +49,5 @@ export default function LikeButton({
     <div className="text-3xl cursor-not-allowed text-[#8fbcbc]">
       <FontAwesomeIcon icon={faHeart} />
     </div>
-  );
+  )
 }
