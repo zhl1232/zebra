@@ -1,0 +1,179 @@
+@font-face {
+  font-family: "cormorant";
+  src: url("../public/assets/CormorantGaramond-Regular.ttf");
+}
+
+body {
+  font-family: 'Helvetica', sans-serif;
+  margin: 0px auto !important;
+  padding: 0px;
+  max-width: 100%;
+  overflow-x: hidden;
+  color: #022645;
+}
+
+button, input[type="submit"], input[type="reset"] {
+	background: none;
+	color: inherit;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
+}
+
+dialog:modal {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: #fcd783;
+  width: 209px;
+  text-align: center;
+  border: 1px solid #ff6347;
+  border-radius: 5px;
+  cursor: pointer;
+  outline: none;
+  position: relative;
+  top: -333px;
+}
+
+dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+
+/* Button Styles */
+
+.btn-3d-1 {
+  width: 100%;
+  position: relative;
+  background: #FF6347;
+  border: none;
+  color: white;
+  text-align: center;
+  padding: 15px 24px;
+  font-size: 1.4rem;
+  box-shadow: -6px 6px 0 hsl(16, 100%, 30%);
+  outline: none;
+}
+
+/* When you hover on the button */
+
+.btn-3d-1:hover {
+  background: hsl(16, 100%, 45%);
+}
+
+.btn-3d-1:active {
+  background: hsl(16, 100%, 40%);
+  top: 3px;
+  left: -3px;
+  box-shadow: -3px 3px 0 hsl(16, 100%, 30%);
+}
+
+/* Adding pseudo element to connect the button's corners */
+
+.btn-3d-1::before {
+  position: absolute;
+  display: block;
+  content: "";
+  height: 0;
+  width: 0;
+
+  border: 6px solid transparent;
+  border-right: 6px solid hsl(16, 100%, 30%);
+  border-left-width: 0px;
+  background: none;
+  top: 0;
+  left: -6px;
+}
+
+.btn-3d-1::after {
+  position: absolute;
+  display: block;
+  content: "";
+  height: 0;
+  width: 0;
+
+  border: 6px solid transparent;
+  border-top: 6px solid hsl(16, 100%, 30%);
+  border-bottom-width: 0px;
+  background: none;
+  bottom: -5.5px;
+  right: 0;
+}
+
+/* When you click on the button */
+
+.btn-3d-1:active::before {
+  border: 3px solid transparent;
+  border-right: 3px solid hsl(16, 100%, 30%);
+  border-left-width: 0px;
+  top: 0;
+  left: -2.75px;
+}
+
+.btn-3d-1:active::after {
+  border: 2.75px solid transparent;
+  border-top: 3px solid hsl(16, 100%, 30%);
+  border-bottom-width: 0px;
+  bottom: -2.75px;
+  right: 0;
+}
+
+/* LanguageSwitch Styles */
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+input:checked+.slider {
+  background-color: #2196f3;
+}
+
+input:focus+.slider {
+  box-shadow: 0 0 1px #2196f3;
+}
+
+input:checked+.slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* LANGUAGE DROPDOWN */
+.lang-dropdown {
+  backdrop-filter: blur(20px);
+}
